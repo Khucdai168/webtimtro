@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách liên hệ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .empty {
+      text-align: center;
+      color: gray;
+      padding: 40px;
+    }
+    nav a {
+      margin-right: 10px;
+      text-decoration: none;
+      color: #0066cc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📋 Danh sách liên hệ đã lưu</h1>
+
+  <nav>
+    <a href="./trangchu.html">Trang chủ</a>
+    <a href="./lienhe.html">Gửi liên hệ</a>
+  </nav>
+
+  <div id="contactList"></div>
+
+  <script>
+    const contactListEl = document.getElementById('contactList');
+    const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+
+    if (contacts.length === 0) {
+      contactListEl.innerHTML = '<div class="empty">Chưa có liên hệ nào được lưu.</div>';
+    } else {
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Họ tên</th>
+              <th>Email</th>
+              <th>Nội dung</th>
+              <th>Thời gian gửi</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      contacts.forEach(contact => {
+        html += `
+          <tr>
+            <td>${contact.name}</td>
+            <td>${contact.email}</td>
+            <td>${contact.message}</td>
+            <td>${contact.time}</td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      contactListEl.innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>

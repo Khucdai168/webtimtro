@@ -1,0 +1,154 @@
+/* ===== Toàn trang ===== */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  /* ===== Header ===== */
+  header {
+    background-color: #007bff;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  header h1 {
+    margin: 0 0 10px 0;
+    font-weight: 700;
+  }
+  
+  header p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  /* ===== Thanh menu điều hướng ===== */
+  nav {
+    background-color: #0056b3;
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+  }
+  
+  nav a {
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  nav a:hover {
+    color: #cce4ff;
+    text-decoration: underline;
+  }
+  
+  /* ===== Phần tìm kiếm ===== */
+  .search-section {
+    margin: 30px auto;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .search-section input[type="text"],
+  .search-section input[type="number"] {
+    width: 45%;
+    max-width: 280px;
+    padding: 12px 15px;
+    margin: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search-section input[type="text"]:focus,
+  .search-section input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .search-section button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-top: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* ===== Danh sách phòng trọ ===== */
+  .hostel-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 15px;
+  }
+  
+  .hostel-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    text-decoration: none;
+    color: #333;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .hostel-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transform: translateY(-6px);
+  }
+  
+  .hostel-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .hostel-card .info {
+    padding: 15px 20px;
+    flex-grow: 1;
+  }
+  
+  .hostel-card h3 {
+    margin: 0 0 8px 0;
+    color: #007bff;
+    font-weight: 700;
+  }
+  
+  .hostel-card p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* ===== Footer ===== */
+  footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 18px 10px;
+    margin-top: 50px;
+    font-size: 14px;
+  }
+  

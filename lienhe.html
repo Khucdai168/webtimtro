@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liên Hệ</title>
+  <link rel="stylesheet" href="./lienhe.css">
+</head>
+<body>
+
+  <header>
+    <h1>Liên hệ với chúng tôi</h1>
+    <p>Hãy để lại lời nhắn, chúng tôi sẽ phản hồi sớm nhất!</p>
+  </header>
+
+  <nav>
+    <a href="./trangchu.html">Trang chủ</a>
+    <a href="./nhatro.html">Nhà trọ</a>
+    <a href="./lienhe.html" class="active">Liên hệ</a>
+    <a href="./dangtin.html">Đăng tin</a>
+  </nav>
+
+  <section class="contact-section">
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Họ và tên của bạn" required>
+      <input type="email" id="email" placeholder="Email liên hệ" required>
+      <textarea id="message" placeholder="Nội dung cần hỗ trợ..." rows="5" required></textarea>
+      <button type="submit">📩 Gửi liên hệ</button>
+    </form>
+    <p id="response-message" style="text-align: center; margin-top: 15px; color: green;"></p>
+  </section>
+
+  <footer>
+    © 2025 Tìm Nhà Trọ - Mọi quyền được bảo lưu.
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      const contact = {
+        name,
+        email,
+        message,
+        time: new Date().toLocaleString()
+      };
+
+      // Lấy danh sách đã lưu (nếu có)
+      const existingContacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+
+      // Thêm liên hệ mới
+      existingContacts.push(contact);
+
+      // Lưu lại vào localStorage
+      localStorage.setItem('contacts', JSON.stringify(existingContacts));
+
+      // Thông báo
+      document.getElementById('response-message').textContent = `✅ Cảm ơn ${name}, liên hệ của bạn đã được lưu!`;
+
+      // Xóa form
+      document.getElementById('contactForm').reset();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh Sách Nhà Trọ</title>
+  <link rel="stylesheet" href="./nhatro.css">
+</head>
+<body>
+
+  <header>
+    <h1>Danh sách nhà trọ</h1>
+    <p>Hiển thị các phòng trọ phù hợp với bạn</p>
+  </header>
+
+  <nav>
+    <a href="./trangchu.html">Trang chủ</a>
+    <a href="./nhatro.html">Nhà trọ</a>
+    <a href="./lienhe.html">Liên hệ</a>
+    <a href="./dangtin.html">Đăng tin</a>
+  </nav>
+
+  <section class="hostel-list" id="tin-container"></section>
+
+  <footer>
+    © 2025 Tìm Nhà Trọ - Mọi quyền được bảo lưu.
+  </footer>
+
+  <script>
+    // Tạo userID nếu chưa có
+    let currentUserID = localStorage.getItem("userID");
+    if (!currentUserID) {
+      currentUserID = "user_" + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem("userID", currentUserID);
+    }
+
+    function renderTinDang() {
+      const dsTinDang = JSON.parse(localStorage.getItem("dsTinDang")) || [];
+      const container = document.getElementById("tin-container");
+      container.innerHTML = "";
+
+      dsTinDang.forEach((tin, index) => {
+        const div = document.createElement("div");
+        div.className = "hostel-card";
+
+        div.innerHTML = `
+          <img src="${tin.image}" alt="${tin.title}" class="preview-img" style="width:100%; max-height:250px; object-fit:cover">
+          <div class="info">
+            <h3>${tin.title}</h3>
+            <div class="price">Giá: ${tin.price} VND</div>
+            <div class="location">Địa chỉ: ${tin.address}</div>
+            <p>Mô tả: ${tin.description}</p>
+            <p><small>🕒 ${new Date(tin.timestamp).toLocaleString()}</small></p>
+          </div>
+        `;
+
+        // Nếu là người đăng, cho sửa và xóa
+        if (tin.userID === currentUserID) {
+          const btnEdit = document.createElement("button");
+          btnEdit.textContent = "Sửa";
+          btnEdit.onclick = () => editTin(index);
+
+          const btnDelete = document.createElement("button");
+          btnDelete.textContent = "Xóa";
+          btnDelete.onclick = () => deleteTin(index);
+
+          const btnContainer = document.createElement("div");
+          btnContainer.className = "action-buttons";
+          btnContainer.appendChild(btnEdit);
+          btnContainer.appendChild(btnDelete);
+
+          div.appendChild(btnContainer);
+        }
+
+        container.appendChild(div);
+      });
+    }
+
+    function deleteTin(index) {
+      const dsTinDang = JSON.parse(localStorage.getItem("dsTinDang")) || [];
+      if (confirm("Bạn có chắc chắn muốn xóa tin này?")) {
+        dsTinDang.splice(index, 1);
+        localStorage.setItem("dsTinDang", JSON.stringify(dsTinDang));
+        renderTinDang();
+      }
+    }
+
+    function editTin(index) {
+      const dsTinDang = JSON.parse(localStorage.getItem("dsTinDang")) || [];
+      const tin = dsTinDang[index];
+
+      const newTitle = prompt("Sửa tiêu đề:", tin.title);
+      const newPrice = prompt("Sửa giá:", tin.price);
+      const newAddress = prompt("Sửa địa chỉ:", tin.address);
+      const newDescription = prompt("Sửa mô tả:", tin.description);
+
+      if (newTitle && newPrice && newAddress && newDescription) {
+        tin.title = newTitle;
+        tin.price = newPrice;
+        tin.address = newAddress;
+        tin.description = newDescription;
+        tin.timestamp = new Date().toISOString();
+        dsTinDang[index] = tin;
+        localStorage.setItem("dsTinDang", JSON.stringify(dsTinDang));
+        renderTinDang();
+      }
+    }
+
+    window.onload = renderTinDang;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Danh Sách Tin Đăng</title>
+  <link rel="stylesheet" href="./danhsachdangtin.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Danh Sách Tin Đăng</h1>
+    <p>Tổng hợp các tin phòng trọ bạn đã đăng</p>
+  </header>
+
+  <nav>
+    <a href="./trangchu.html">Trang chủ</a>
+    <a href="./nhatro.html">Nhà trọ</a>
+    <a href="./lienhe.html">Liên hệ</a>
+    <a href="./dangtin.html">Đăng tin</a>
+  </nav>
+
+  <section id="listings" class="listing-section">
+    <!-- Danh sách tin sẽ hiển thị ở đây -->
+  </section>
+
+  <footer>
+    © 2025 Tìm Nhà Trọ - Mọi quyền được bảo lưu.
+  </footer>
+
+  <script>
+    // Tải dữ liệu tin đăng từ localStorage
+    const listings = JSON.parse(localStorage.getItem('dsTinDang')) || [];
+    const container = document.getElementById('listings');
+
+    if (listings.length === 0) {
+      container.innerHTML = "<p style='text-align:center'>⚠️ Hiện chưa có tin đăng nào.</p>";
+    } else {
+      listings.reverse().forEach(tin => {
+        const card = document.createElement('div');
+        card.className = 'listing-card';
+        card.innerHTML = `
+          <h3>${tin.title}</h3>
+          <img src="${tin.image}" alt="Ảnh phòng" style="max-width:100%; height:auto; margin: 10px 0;">
+          <p><strong>Giá:</strong> ${tin.price} VND</p>
+          <p><strong>Địa chỉ:</strong> ${tin.address}</p>
+          <p><strong>Mô tả:</strong> ${tin.description}</p>
+          ${tin.latitude && tin.longitude
+            ? `<p><strong>Vị trí GPS:</strong> (${parseFloat(tin.latitude).toFixed(5)}, ${parseFloat(tin.longitude).toFixed(5)})</p>`
+            : ''
+          }
+          <p><em>🕒 Ngày đăng: ${new Date(tin.timestamp).toLocaleString()}</em></p>
+          <hr />
+        `;
+        container.appendChild(card);
+      });
+    }
+  </script>
+
+</body>
+</html>

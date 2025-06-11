@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đăng Tin Nhà Trọ</title>
+  <link rel="stylesheet" href="./dangtin.css">
+</head>
+<body>
+
+  <header>
+    <h1>Đăng tin phòng trọ</h1>
+    <p>Chia sẻ thông tin nhà trọ của bạn đến người thuê</p>
+  </header>
+
+  <nav>
+    <a href="./trangchu.html">Trang chủ</a>
+    <a href="./nhatro.html">Nhà trọ</a>
+    <a href="./lienhe.html">Liên hệ</a>
+    <a href="./dangtin.html">Đăng tin</a>
+  </nav>
+
+  <section class="contact-section">
+    <form onsubmit="submitForm(event)">
+      <input type="text" id="title" placeholder="Tiêu đề phòng trọ" required>
+      <input type="text" id="price" placeholder="Giá tiền (VND)" required>
+      <input type="text" id="address" placeholder="Địa chỉ chi tiết" required>
+      <textarea id="description" placeholder="Mô tả chi tiết (diện tích, tiện nghi...)" rows="5" required></textarea>
+      <input type="file" id="image" accept="image/*" required>
+
+      <!-- GPS -->
+      <input type="hidden" id="latitude">
+      <input type="hidden" id="longitude">
+      <p id="location-info" style="text-align: center; color: blue;"></p>
+
+      <button type="submit">Đăng tin</button>
+    </form>
+    <p id="success-message" style="color: green; text-align: center; margin-top: 15px;"></p>
+  </section>
+
+  <footer>
+    © 2025 Tìm Nhà Trọ - Mọi quyền được bảo lưu.
+  </footer>
+
+  <script>
+    // Khởi tạo userID nếu chưa có
+    let currentUserID = localStorage.getItem("userID");
+    if (!currentUserID) {
+      currentUserID = "user_" + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem("userID", currentUserID);
+    }
+
+    // Lấy vị trí GPS
+    window.onload = function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            document.getElementById('latitude').value = position.coords.latitude;
+            document.getElementById('longitude').value = position.coords.longitude;
+            document.getElementById('location-info').textContent =
+              `📍 Vị trí của bạn: (${position.coords.latitude.toFixed(5)}, ${position.coords.longitude.toFixed(5)})`;
+          },
+          function () {
+            document.getElementById('location-info').textContent = '⚠️ Không thể lấy vị trí GPS!';
+          }
+        );
+      } else {
+        document.getElementById('location-info').textContent = '⚠️ Trình duyệt không hỗ trợ GPS.';
+      }
+    };
+
+    function submitForm(event) {
+      event.preventDefault();
+
+      const file = document.getElementById('image').files[0];
+      if (!file) {
+        alert("Vui lòng chọn ảnh!");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const base64Image = e.target.result;
+
+        const tinDang = {
+          title: document.getElementById('title').value.trim(),
+          price: document.getElementById('price').value.trim(),
+          address: document.getElementById('address').value.trim(),
+          description: document.getElementById('description').value.trim(),
+          image: base64Image,
+          latitude: document.getElementById('latitude').value,
+          longitude: document.getElementById('longitude').value,
+          timestamp: new Date().toISOString(),
+          userID: currentUserID // Gắn user đăng tin
+        };
+
+        const dsTinDang = JSON.parse(localStorage.getItem('dsTinDang')) || [];
+        dsTinDang.push(tinDang);
+        localStorage.setItem('dsTinDang', JSON.stringify(dsTinDang));
+
+        window.location.href = './nhatro.html';
+      };
+
+      reader.readAsDataURL(file);
+    }
+  </script>
+
+</body>
+</html>

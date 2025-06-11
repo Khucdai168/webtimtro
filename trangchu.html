@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trang Chủ - Tìm Nhà Trọ</title>
+  <link rel="stylesheet" href="./trangchu.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <header>
+    <h1>Tìm Nhà Trọ</h1>
+    <p>Tìm kiếm phòng trọ phù hợp nhanh chóng và dễ dàng</p>
+  </header>
+
+  <nav>
+    <a href="./trangchu.html">Trang chủ</a>
+    <a href="./nhatro.html">Nhà trọ</a>
+    <a href="./lienhe.html">Liên hệ</a>
+    <a href="./dangtin.html">Đăng tin</a>
+  </nav>
+
+  <div class="search-section">
+    <label for="locationInput" hidden>Vị trí</label>
+    <input type="text" id="locationInput" placeholder="Nhập vị trí, quận, huyện..." />
+
+    <button id="searchButton">Tìm kiếm</button>
+  </div>
+
+  <section class="hostel-list">
+    <a href="danhsach.html?location=quan-1" class="hostel-card">
+      <div class="info">
+        <h3>Phòng trọ Quận 1</h3>
+        <p>Giá: 3.000.000đ/tháng</p>
+        <p>123 Nguyễn Thị Minh Khai, Q1</p>
+      </div>
+    </a>
+
+    <a href="danhsach.html?location=go-vap" class="hostel-card">
+      <div class="info">
+        <h3>Phòng trọ Gò Vấp</h3>
+        <p>Giá: 2.500.000đ/tháng</p>
+        <p>456 Lê Đức Thọ, Gò Vấp</p>
+      </div>
+    </a>
+  </section>
+
+  <footer>
+    © 2025 Tìm Nhà Trọ - Mọi quyền được bảo lưu.
+  </footer>
+  <script type="module" src="./trangchu.js"></script>
+  
+  
+
+</body>
+</html>
